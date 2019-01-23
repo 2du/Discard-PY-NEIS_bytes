@@ -6,14 +6,12 @@ app = flask.Flask(__name__)
 def main():
     if flask.request.method == 'POST':
         data = flask.request.form.get('run', '')
-        print(data)
         s_data = data
 
         data = re.sub("[^ㄱ-힣]", "1", data)
         data = re.sub("[ㄱ-힣]", "3", data)
 
         b = 0
-        print(data)
         for a in data:
             b += int(a)
 
