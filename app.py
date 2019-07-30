@@ -1,5 +1,12 @@
 import re
 import flask
+import werkzeug.routing
+import flask_compress
+import flask_reggie
+import tornado.ioloop
+import tornado.httpserver
+import tornado.wsgi
+
 app = flask.Flask(__name__)
 
 @app.route("/", methods=['POST', 'GET'])
@@ -35,6 +42,8 @@ def main():
                 <button>Input</button>
             </form>
         '''
-
-if __name__ == '__main__':
-    app.run(debug = True)
+if __name__=="__main__":
+    http_server = tornado.httpserver.HTTPServer(tornado.wsgi.WSGIContainer(app))
+    http_server.listen(3000, address='0.0.0.0')
+    
+    tornado.ioloop.IOLoop.instance().start()
